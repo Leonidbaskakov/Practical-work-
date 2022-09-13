@@ -44,22 +44,27 @@ while (nummas != countmas + 1)
         for (int i = 0; i < newarray.Length; i++)
         {
             newarray[i] = array[new Random().Next(0, array.Length - 1)]; //заполнение массива идет случайнымми элементами
-        }
-
-        int n = 0;
-        newarray[n] = array[new Random().Next(0, array.Length - 1)];
-        for (int i = 1; i < newarray.Length; i++)
-        {
-            if (newarray[n] == newarray[i])
+            string checker = newarray[i];
+            if (i >= 1)
             {
-                newarray[i] = array[new Random().Next(0, array.Length - 1)];
-                n = i;
+                for (int j = 0; j < i; j++)
+                {
+                    while (newarray[i] == newarray[j])
+                    {
+                        newarray[i] = array[new Random().Next(0, array.Length - 1)];
+                        j = 0;
+                        checker = newarray[i];
+                    }
+                    checker = newarray[i];
+                }
             }
         }
         return newarray;
     }
 
-    string[] newarr = FillNewArray(arrays, 3, 3);
+
+    string[] newarr = FillNewArray(arrays, 1, 3);
+
     PrintArr(newarr);
     nummas++;
     Console.WriteLine();
