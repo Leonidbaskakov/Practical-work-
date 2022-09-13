@@ -2,49 +2,54 @@
 // Первоначальный массив можно ввести с клавиатуры, либо задать на старте выполнения алгоритма. 
 // При решении не рекомендуется пользоваться коллекциями, лучше обойтись исключительно массивами.
 
+Console.WriteLine("Введите количество массивов");
+int countmas = Convert.ToInt32(Console.ReadLine());
 
-int n = new Random().Next(5, 7); //Размер массива
-
-string[] FillArray(int num) //заполнение массива различными символами
+int nummas = 1;
+while (nummas != countmas)
 {
-    string[] arra = new string[num];
-    for (int i = 0; i < num; i++)
+    int n = new Random().Next(5, 7); //Размер массива
+
+    string[] FillArray(int num) //заполнение массива различными символами
     {
-        Console.Write($"Введите {i + 1} символ  массива ");
-        arra[i] = Console.ReadLine();
+        string[] arra = new string[num];
+        for (int i = 0; i < num; i++)
+        {
+            Console.Write($"Введите {i + 1} символ {nummas} массива ");
+            arra[i] = Console.ReadLine();
+        }
+        return arra;
     }
-    return arra;
-}
 
-void PrintArr(string[] array) //вывод массива на консоль
-{
-    Console.Write("[");
-    for (int i = 0; i < array.Length; i++)
+    void PrintArr(string[] array) //вывод массива на консоль
     {
-        if (i < array.Length - 1) Console.Write($"{array[i]}" + ", ");
+        Console.Write("[");
+        for (int i = 0; i < array.Length; i++)
+        {
+            if (i < array.Length - 1) Console.Write($"{array[i]}" + ", ");
+        }
+        Console.Write($"{array[array.Length - 1]}]");
     }
-    Console.Write($"{array[array.Length - 1]}]");
-}
 
-string[] arrays = FillArray(n); // заполнение нашего массива
+    string[] arrays = FillArray(n); // заполнение нашего массива
 
-PrintArr(arrays);
+    PrintArr(arrays);
+    Console.WriteLine();
+    Console.WriteLine("Отсортированный массив");
 
-Console.WriteLine();
-Console.WriteLine("Отфильтрованный массив");
-
-string[] FillNewArray(string[] array, int min, int max) // на вход принимаем наш массив
-{
-    int f = new Random().Next(min, max); //создаем размер нового массива (в нашем случае от 1 до 3)
-    string[] newarray = new string[f];
-    for (int i = 0; i < newarray.Length; i++)
+    string[] FillNewArray(string[] array, int min, int max) // на вход принимаем наш массив
     {
-        newarray[i] = array[new Random().Next(0, array.Length - 1)]; //заполнение массива идет случайнымми элементами
+        int f = new Random().Next(min, max); //создаем размер нового массива (в нашем случае от 1 до 3)
+        string[] newarray = new string[f];
+        for (int i = 0; i < newarray.Length; i++)
+        {
+            newarray[i] = array[new Random().Next(0, array.Length - 1)]; //заполнение массива идет случайнымми элементами
+        }
+        return newarray;
     }
-    return newarray;
+
+    string[] newarr = FillNewArray(arrays, 1, 3);
+    PrintArr(newarr);
+    nummas++;
+    Console.WriteLine();
 }
-
-string[] newarr = FillNewArray(arrays, 1, 3);
-PrintArr(newarr);
-
-
