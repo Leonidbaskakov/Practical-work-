@@ -5,6 +5,12 @@
 Console.WriteLine("Введите количество массивов");
 int countmas = Convert.ToInt32(Console.ReadLine());
 
+if (countmas < 1)
+{
+    Console.WriteLine("Введите положительное целое число");
+    return;
+}
+
 int nummas = 1; // счётчик массива, каждый раз в конце увеличивается на 1
 while (nummas != countmas + 1)
 {
@@ -23,23 +29,27 @@ while (nummas != countmas + 1)
 
     void PrintArr(string[] array) //вывод массива на консоль
     {
-        Console.Write("[");
-        for (int i = 0; i < array.Length; i++)
+        if (array.Length > 0)
         {
-            if (i < array.Length - 1) Console.Write($"{array[i]}" + ", ");
-        }
-        Console.Write($"{array[array.Length - 1]}]");
-    }
-    string[] arrays = FillArray(n); // заполнение нашего массива
-    PrintArr(arrays);
 
-    Console.WriteLine();
-    Console.WriteLine("Отфильтрованный массив");
+            Console.Write("[");
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (i < array.Length - 1) Console.Write($"{array[i]}" + ", ");
+            }
+            Console.Write($"{array[array.Length - 1]}]");
+        }
+        else Console.WriteLine("[]");
+    }
+
 
     string[] FillNewArray(string[] array, int min, int max) // на вход принимаем наш массив
     {
-        int f = new Random().Next(min, max); //создаем размер нового массива (в нашем случае от 1 до 3)
-        string[] newarray = new string[f];
+        int arraylength = new Random().Next(min, max); //создаем размер нового массива (в нашем случае от 1 до 3)
+
+        string[] newarray = new string[arraylength];
+
+        if (arraylength == 0) return newarray; //если в отфильтрованном массиве 0 элементов, то мы его не заполняем
 
         for (int i = 0; i < newarray.Length; i++)
         {
@@ -47,7 +57,7 @@ while (nummas != countmas + 1)
             string checker = newarray[i];
             if (i >= 1)
             {
-                for (int j = 0; j < i; j++)
+                for (int j = 0; j < i; j++) //проверка на повторяемость элементов в массиве
                 {
                     while (newarray[i] == newarray[j])
                     {
@@ -62,10 +72,14 @@ while (nummas != countmas + 1)
         return newarray;
     }
 
+    string[] arrays = FillArray(n); // заполнение нашего массива
+    PrintArr(arrays);
 
-    string[] newarr = FillNewArray(arrays, 1, 3);
+    Console.WriteLine();
+    Console.WriteLine("Отфильтрованный массив");
+
+    string[] newarr = FillNewArray(arrays, 0, 3);
 
     PrintArr(newarr);
     nummas++;
-    Console.WriteLine();
 }
